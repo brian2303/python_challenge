@@ -5,7 +5,7 @@ import logging
 from app.domain.model.book_model import Book
 from app.infrastructure.external.mongo_db.dto_model.book_dto import BookDTO
 from app.infrastructure.external.mongo_db.mongo_provider import MongoProvider
-from app.infrastructure.external.requests.resource_type import ResourceType
+from app.infrastructure.external.common.resource_type import ResourceType
 from app.infrastructure.port.in_.modify_books_port import ModifyBooksPort
 from app.infrastructure.external.requests.request_provider import RequestsProvider
 from app.app_utils import AppUtils
@@ -55,8 +55,10 @@ class ModifyBookAdapter(ModifyBooksPort):
         return google_books_items + open_library_items
 
     def __build_params_to_requests(self, param):
-        google_api_param = {'q': param}
-        open_library_api_param = {'q': param, 'fields': self.OPEN_API_ID}
+        format_param = param.strip()
+        format_param = format_param.replace(" ", "+")
+        google_api_param = {'q': format_param}
+        open_library_api_param = {'q': format_param, 'fields': self.OPEN_API_ID}
         return google_api_param, open_library_api_param
 
     @classmethod
