@@ -1,20 +1,17 @@
-import requests
-import logging
+import aiohttp
 from app.app_utils import AppUtils
 
 
 class RequestsProvider:
     AppUtils.log_conf()
 
-    def __init__(self, url):
-        self.url = url
+    @classmethod
+    async def fetch(cls, session, params, url):
+        async with session.get(url, params=params) as response:
+            if response.status == 200:
+                return await response.json()
 
-    def get_request(self, params):
-        try:
-            response = requests.get(self.url, params=params, timeout=10)
-            if response.status_code is 200:
-                return response.json()
-        except requests.Timeout:
-            logging.error("Close connection by timeout")
-        except requests.RequestException:
-            logging.error("Request error")
+    async def get_request(self, params, url):
+        async with aiohttp.ClientSession() as session:
+            response = await self.fetch(session, params, url)
+            return response
