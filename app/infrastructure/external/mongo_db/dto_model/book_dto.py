@@ -1,15 +1,14 @@
 from pydantic import BaseModel
 from typing import List, Optional
-from datetime import datetime
 
 
 class BookDTO(BaseModel):
-    _id: str
+    id: str
     title: str
     subtitle: str
     authors: List[str]
     categories: List[str]
-    publication_date: datetime
+    published_date: str
     editor: str
     description: str
     image: Optional[str]
