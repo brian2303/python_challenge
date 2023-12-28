@@ -31,13 +31,14 @@ class MongoProvider:
     async def find_one(self, query):
         conn = self.__connect_conf()
         query_built = self.__build_query(query)
-        data = await conn.find_one(query_built)
+        data = conn.find(query_built)
+        list_data = await data.to_list(length=1000)
         logging.info("Get data successfully")
-        return data
+        return list_data
 
     async def insert(self, data):
         conn = self.__connect_conf()
-        data = await conn.insert_many(data)
+        data = await conn.insert_one(data)
         logging.info("Save data successfully")
         return data
 
