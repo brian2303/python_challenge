@@ -28,7 +28,7 @@ class MongoProvider:
         logging.info("Get connection")
         return db[self.collection]
 
-    async def find_one(self, query):
+    async def find_books(self, query):
         conn = self.__connect_conf()
         query_built = self.__build_query(query)
         data = conn.find(query_built)
@@ -42,12 +42,13 @@ class MongoProvider:
         logging.info("Save data successfully")
         return data
 
-    async def delete(self, query):
+    async def delete_by_id(self, id):
         conn = self.__connect_conf()
-        data = conn.find_one(query)
-        if data is not None:
-            await conn.delete_one(query)
+        query = {"id": id}
+        data = await self.find_books(id)
+        if len(data) > 0:
             logging.info("delete data")
+            return await conn.delete_one(query)
         logging.info("File not found in_ db")
         raise FileNotFoundError
 
@@ -64,6 +65,6 @@ class MongoProvider:
                 {"published_date": full_query},
                 {"editor": full_query},
                 {"description": full_query},
-                {"image.some_key": full_query}
+                {"image": full_query}
             ]
         }

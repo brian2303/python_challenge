@@ -47,6 +47,9 @@ class ModifyBookAdapter(ModifyBooksPort):
         await self.insert_book(book)
         return book
 
+    async def delete_book_by_id(self, book_id):
+        return await self.mongo_provider.delete_by_id(book_id)
+
     def __extract_book_id(self, request_response):
         raw_google_books_items = request_response[0].get('items', [])
         raw_open_library_items = request_response[1].get('docs', [])
@@ -94,11 +97,11 @@ class ModifyBookAdapter(ModifyBooksPort):
             id=request_response.get("id"),
             title=request_response.get("volumeInfo").get("title"),
             subtitle=request_response.get("volumeInfo").get("subtitle", ""),
-            authors=request_response.get("volumeInfo").get("authors"),
+            authors=request_response.get("volumeInfo").get("authors", []),
             categories=request_response.get("volumeInfo").get("categories"),
             published_date=request_response.get("volumeInfo").get("publishedDate"),
-            editor=request_response.get("volumeInfo").get("publisher"),
-            description=request_response.get("volumeInfo").get("description"),
+            editor=request_response.get("volumeInfo").get("publisher", ""),
+            description=request_response.get("volumeInfo").get("description", ""),
             image=request_response.get("volumeInfo").get("imageLinks").get("large", "")
         ).model_dump()
 

@@ -16,7 +16,7 @@ class ProcessBookAdapter(ProcessBooksPort):
         self.mongo_provider = MongoProvider(self.collection)
 
     async def find_book(self, query):
-        response = await self.mongo_provider.find_one(query)
+        response = await self.mongo_provider.find_books(query)
         if response is not None:
             return [Book(
                 id=book.get("id"),
