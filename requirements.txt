@@ -36,7 +36,6 @@ python-dotenv==1.0.0
 Rx==1.6.3
 six==1.16.0
 twisted==23.10.0
-twisted-iocpsupport==1.0.4
 typing-extensions==4.9.0
 urllib3==2.1.0
 werkzeug==3.0.1
