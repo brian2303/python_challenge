@@ -30,7 +30,7 @@ class CreateBook(Mutation):
         book_uploaded = await book_manage_use_case.save_book(book)
         return CreateBook(book=SaveBookResponse(
             id=book_uploaded.get("id"),
-            message="book successfully saved"
+            message="Book successfully saved"
         ))
 
 
@@ -39,11 +39,18 @@ class DeleteBook(Mutation):
         book_id = ID(required=True)
 
     success = Boolean()
+    message = String()
 
     async def mutate(self, info, book_id):
-        book_manage_use_case = BookManageUseCase()
-        delete_success = await book_manage_use_case.delete_book(book_id)
-        return DeleteBook(success=bool(delete_success.deleted_count))
+        delete_success = None
+        try:
+            book_manage_use_case = BookManageUseCase()
+            delete_success = await book_manage_use_case.delete_book(book_id)
+            return DeleteBook(success=bool(delete_success.deleted_count),
+                              message="Delete book with id {} successfully".format(book_id))
+        except FileNotFoundError:
+            return DeleteBook(success=False,
+                              message="Book not found")
 
 
 class MyMutations(ObjectType):
