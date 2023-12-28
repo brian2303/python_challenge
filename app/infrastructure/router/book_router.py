@@ -27,11 +27,17 @@ class CreateBook(Mutation):
             id=id,
             resource=resource
         )
-        book_uploaded = await book_manage_use_case.save_book(book)
-        return CreateBook(book=SaveBookResponse(
-            id=book_uploaded.get("id"),
-            message="Book successfully saved"
-        ))
+        try:
+            book_uploaded = await book_manage_use_case.save_book(book)
+            return CreateBook(book=SaveBookResponse(
+                id=book_uploaded.get("id"),
+                message="Book successfully saved"
+            ))
+        except FileExistsError as error:
+            return CreateBook(book=SaveBookResponse(
+                id=id,
+                message="Book already exists in database"
+            ))
 
 
 class DeleteBook(Mutation):
