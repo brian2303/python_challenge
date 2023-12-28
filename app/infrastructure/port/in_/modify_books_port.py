@@ -14,3 +14,7 @@ class ModifyBooksPort(ABC):
     @abstractmethod
     def insert_data_from_external_requests(self, raw_data_book):
         pass
+
+    @abstractmethod
+    def delete_book_by_id(self, book_id):
+        pass

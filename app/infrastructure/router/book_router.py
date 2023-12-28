@@ -1,4 +1,4 @@
-from graphene import ObjectType, Field, List, String, Mutation
+from graphene import ObjectType, Field, List, String, Mutation, ID, Boolean
 
 from app.domain.model.book_model import Book
 from app.domain.model.save_book_response import SaveBookResponse
@@ -34,5 +34,18 @@ class CreateBook(Mutation):
         ))
 
 
+class DeleteBook(Mutation):
+    class Arguments:
+        book_id = ID(required=True)
+
+    success = Boolean()
+
+    async def mutate(self, info, book_id):
+        book_manage_use_case = BookManageUseCase()
+        delete_success = await book_manage_use_case.delete_book(book_id)
+        return DeleteBook(success=bool(delete_success.deleted_count))
+
+
 class MyMutations(ObjectType):
     create_book = CreateBook.Field()
+    delete_book = DeleteBook.Field()

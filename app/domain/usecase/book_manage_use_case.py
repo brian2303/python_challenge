@@ -16,7 +16,7 @@ class BookManageUseCase:
     async def process_book_data(self, find_criteria):
         try:
             book = await self.process_book.find_book(find_criteria)
-            if book is None:
+            if len(book) == 0:
                 book_founded = await self.modify_book.get_all_external_data(find_criteria)
                 return book_founded
             return book
@@ -27,5 +27,5 @@ class BookManageUseCase:
         book_response = await self.modify_book.insert_data_from_external_requests(raw_book_data)
         return book_response
 
-
-
+    async def delete_book(self, book_id):
+        return await self.modify_book.delete_book_by_id(book_id)
