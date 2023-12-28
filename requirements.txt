@@ -16,7 +16,7 @@ flask==3.0.0
 Flask-GraphQL==2.0.1
 frozenlist==1.4.1
 graphene==2.1.8
-graphql-core==2.2.1
+graphql-core==2.3
 graphql-relay==2.0.1
 graphql-server-core==1.2.0
 hyperlink==21.0.0
