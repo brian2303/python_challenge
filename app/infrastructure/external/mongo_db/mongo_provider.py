@@ -24,7 +24,7 @@ class MongoProvider:
             password=self.password
         )
 
-        client = motor.motor_asyncio.AsyncIOMotorClient(str_connection,ssl=True)
+        client = motor.motor_asyncio.AsyncIOMotorClient(str_connection,ssl=False)
         db = client[self.db_name]
         logging.info("Get connection")
         return db[self.collection]
