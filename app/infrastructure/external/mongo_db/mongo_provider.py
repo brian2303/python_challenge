@@ -13,7 +13,7 @@ class MongoProvider:
 
     def __init__(self, collection):
         self.db_name = os.getenv("DB_NAME")
-        self.user = os.getenv("USER")
+        self.user = os.getenv("USER_NAME")
         self.password = os.getenv("PASSWORD")
         self.str_connection = os.getenv("STR_CONNECT")
         self.collection = collection
