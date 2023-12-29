@@ -9,6 +9,7 @@ GraphQL API for search books from Google Books API and Open Library API, in addi
 * Flask
 * AIOHTTP
 * motor
+* Flask-JWT-Extended
 
 ## Environment Variables
 
@@ -17,6 +18,10 @@ To run this project, you will need to add the following environment variables to
 ### **Env variable to database:** ###
 
 `COLLECTION` books
+
+`COLLECTION_USERS` books
+
+`SECRET_KEY` <your_secret_key>
 
 `DB_NAME` pythonChallenge
 
@@ -71,14 +76,45 @@ Start the server
 ```
 
 
-## 🔗 Heroku URL - Deploy
-https://library-books-app-1e709afa3394.herokuapp.com/books
+## 🔗 Heroku URLs - Deploy
 
-Examples of use:
+You need to create a user so you can log in and get the access token later
 
+method: **POST**:
+
+https://library-books-app-1e709afa3394.herokuapp.com/create-user
+
+**JSON payload**
+
+```
+{
+    "username": "user_name_here",
+    "password": "password_here"
+}
+```
+----------------------------------------------------
+
+You need to login a user to receive the access token
+
+method: **POST** :
+
+https://library-books-app-1e709afa3394.herokuapp.com/login
+
+**JSON payload**
+
+```
+{
+    "username": "user_name_here",
+    "password": "password_here"
+}
+```
 
 
 ## Usage/Examples
+
+You should include token generated previously like **Bearer Token** authentication method to each GraphQL request
+
+https://library-books-app-1e709afa3394.herokuapp.com/books
 
 Search a book using a query:
 
@@ -120,6 +156,7 @@ mutation DeleteBook {
 ```
 ## Authors
 
-- [@brian2303](https://github.com/brian2303)
+- [@brian2303](https://github.com/brian2303) GitHub
+- [LinkedinProfile](https://www.linkedin.com/in/bolarte)
 
 
