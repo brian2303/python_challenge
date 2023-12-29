@@ -19,6 +19,7 @@ class CreateUserAdapter(CreateUserPort):
             "password_hash": password_hash
         }
         data = await self.mongo_provider.insert(user_document)
+        logging.info("User created successfully")
         return data.acknowledged
 
     async def check_user(self, username, password):

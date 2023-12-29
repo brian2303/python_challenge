@@ -1,9 +1,7 @@
 import aiohttp
-from app.app_utils import AppUtils
 
 
 class RequestsProvider:
-    AppUtils.log_conf()
 
     @classmethod
     async def fetch(cls, session, params, url):

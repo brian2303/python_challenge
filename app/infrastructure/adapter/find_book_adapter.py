@@ -9,13 +9,9 @@ from app.infrastructure.external.mongo_db.mongo_provider import MongoProvider
 from app.infrastructure.external.requests.request_provider import RequestsProvider
 from app.infrastructure.port.out.find_book_port import FindBookPort
 from app.infrastructure.utils.mapper import MapperUtils
-from app.app_utils import AppUtils
 
 
 class FindBookAdapter(FindBookPort):
-    load_dotenv()
-
-    AppUtils.log_conf()
     load_dotenv()
     OPEN_API_ID = 'isbn'
     FIRST_ID = 0

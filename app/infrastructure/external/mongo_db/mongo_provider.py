@@ -2,12 +2,10 @@ import os
 import motor.motor_asyncio
 import logging
 from dotenv import load_dotenv
-from app.app_utils import AppUtils
 from bson.regex import Regex
 
 
 class MongoProvider:
-    AppUtils.log_conf()
     load_dotenv()
 
     def __init__(self, collection):
