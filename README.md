@@ -85,10 +85,10 @@ Search a book using a query:
 ```
 query BookSearch {
     bookSearch(search: "Alicia en el pais de las maravillas") {
-        id
-        resource
-    		  title
-    		  subtitle
+      id
+      resource
+      title
+      subtitle
     }
 }
 ```
@@ -99,10 +99,10 @@ Save a book using a mutation:
 mutation CreateBook {
     createBook(id: "c2hvzgEACAAJ", resource: "GOOGLE_API") {
         book {
-            id
-            message
-          	 title
-          	 subtitle
+          id
+          message
+          title
+          subtitle
         }
     }
 }
