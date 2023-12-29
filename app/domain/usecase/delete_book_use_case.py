@@ -1,10 +1,7 @@
 from app.infrastructure.adapter.delete_book_adapter import DeleteBookAdapter
 
-from app.app_utils import AppUtils
-
 
 class DeleteBookUseCase:
-    AppUtils.log_conf()
 
     def __init__(self):
         self.delete_book = DeleteBookAdapter()

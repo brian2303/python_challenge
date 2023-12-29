@@ -2,7 +2,6 @@ from app.domain.model.book_dto import BookDTO
 
 
 class MapperUtils:
-
     FIRST_ID = 0
 
     @classmethod

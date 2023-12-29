@@ -1,13 +1,9 @@
 import logging
 
-
 from app.infrastructure.adapter.find_book_adapter import FindBookAdapter
-from app.app_utils import AppUtils
 
 
 class FindBookUseCase:
-
-    AppUtils.log_conf()
 
     def __init__(self):
         self.find_book_adapter = FindBookAdapter()

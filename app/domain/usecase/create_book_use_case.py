@@ -1,12 +1,10 @@
 import logging
 
-from app.app_utils import AppUtils
 from app.infrastructure.adapter.create_book_adapter import CreateBookAdapter
 from app.domain.usecase.find_book_use_case import FindBookUseCase
 
 
 class CreateBookUseCase:
-    AppUtils.log_conf()
 
     def __init__(self):
         self.create_book = CreateBookAdapter()
