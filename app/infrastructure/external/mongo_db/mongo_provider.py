@@ -42,6 +42,11 @@ class MongoProvider:
         logging.info("Save data successfully")
         return data
 
+    async def find_user_by_name(self, username):
+        conn = self.__connect_conf()
+        result = await conn.find_one({"username": username})
+        return result
+
     async def delete_by_id(self, id):
         conn = self.__connect_conf()
         query = {"id": id}
