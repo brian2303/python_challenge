@@ -1,6 +1,5 @@
 import os
 import motor.motor_asyncio
-import ssl
 import logging
 from dotenv import load_dotenv
 from app.app_utils import AppUtils

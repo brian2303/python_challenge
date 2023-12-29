@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 
-class ProcessBooksPort(ABC):
+class DeleteBookPort(ABC):
 
     @abstractmethod
-    def find_book(self, query):
+    def delete_book_by_id(self, book_id):
         pass
