@@ -1,8 +1,10 @@
 from graphene import ObjectType, Field, List, String, Mutation, ID, Boolean
 
-from app.domain.model.book_model import Book
-from app.domain.model.save_book_response import SaveBookResponse
+from app.infrastructure.router.models.book_model import Book
+from app.infrastructure.router.models.save_book_response import SaveBookResponse
 from app.domain.usecase.book_manage_use_case import BookManageUseCase
+from app.domain.usecase.create_book_use_case import CreateBookUseCase
+from app.infrastructure.router.delete_book_router import DeleteBook
 
 
 class GetBooks(ObjectType):
@@ -22,41 +24,29 @@ class CreateBook(Mutation):
     book = Field(SaveBookResponse)
 
     async def mutate(self, info, id, resource):
-        book_manage_use_case = BookManageUseCase()
+        create_book_use_case = CreateBookUseCase()
         book = Book(
             id=id,
             resource=resource
         )
         try:
-            book_uploaded = await book_manage_use_case.save_book(book)
+            book_uploaded = await create_book_use_case.save_book(book)
             return CreateBook(book=SaveBookResponse(
                 id=book_uploaded.get("id"),
-                message="Book successfully saved"
+                message="Book successfully saved",
+                title=book_uploaded.get("title"),
+                subtitle=book_uploaded.get("subtitle")
             ))
         except FileExistsError as error:
             return CreateBook(book=SaveBookResponse(
                 id=id,
-                message="Book already exists in database"
+                message="Book already exists in database",
+                title="",
+                subtitle=""
             ))
 
 
-class DeleteBook(Mutation):
-    class Arguments:
-        book_id = ID(required=True)
 
-    success = Boolean()
-    message = String()
-
-    async def mutate(self, info, book_id):
-        delete_success = None
-        try:
-            book_manage_use_case = BookManageUseCase()
-            delete_success = await book_manage_use_case.delete_book(book_id)
-            return DeleteBook(success=bool(delete_success.deleted_count),
-                              message="Delete book with id {} successfully".format(book_id))
-        except FileNotFoundError:
-            return DeleteBook(success=False,
-                              message="Book not found")
 
 
 class MyMutations(ObjectType):
