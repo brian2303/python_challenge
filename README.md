@@ -84,9 +84,11 @@ Search a book using a query:
 
 ```
 query BookSearch {
-    bookSearch(search: "Lupin") {
+    bookSearch(search: "Alicia en el pais de las maravillas") {
         id
         resource
+    		  title
+    		  subtitle
     }
 }
 ```
@@ -95,10 +97,12 @@ Save a book using a mutation:
 
 ```
 mutation CreateBook {
-    createBook(id: "x2JmDgAAQBAJ", resource: "GOOGLE_API") {
+    createBook(id: "c2hvzgEACAAJ", resource: "GOOGLE_API") {
         book {
             id
             message
+          	 title
+          	 subtitle
         }
     }
 }
@@ -110,6 +114,7 @@ Delete a book using a mutation:
 mutation DeleteBook {
     deleteBook(bookId: "x2JmDgAAQBAJ") {
         success
+        message
     }
 }
 ```
